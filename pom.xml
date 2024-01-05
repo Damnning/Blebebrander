@@ -104,3 +104,5 @@
         </plugins>
     </build>
 </project>
+<!--todo: Хорошо бы перевести с Maven на Gradle
+-->
