@@ -67,7 +67,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.cgvsu.Main</mainClass>
+                            <mainClass>com.cgvsu.original.Main</mainClass>
                         </manifest>
                         <manifestEntries>
                             <Class-Path>.</Class-Path>
@@ -83,7 +83,7 @@
                     <finalName>cgvsu</finalName>
                     <archive>
                         <manifest>
-                            <mainClass>com.cgvsu.Main</mainClass>
+                            <mainClass>com.cgvsu.original.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

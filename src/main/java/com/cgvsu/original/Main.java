@@ -1,4 +1,4 @@
-package com.cgvsu;
+package com.cgvsu.original;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.cgvsu.math;
+package com.cgvsu.original.vector;
 
 // Это заготовка для собственной библиотеки для работы с линейной алгеброй
 public class Vector3f {

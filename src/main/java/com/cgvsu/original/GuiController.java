@@ -1,6 +1,6 @@
-package com.cgvsu;
+package com.cgvsu.original;
 
-import com.cgvsu.render_engine.RenderEngine;
+import com.cgvsu.original.render_engine.RenderEngine;
 import javafx.fxml.FXML;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -17,9 +17,9 @@ import java.io.IOException;
 import java.io.File;
 import javax.vecmath.Vector3f;
 
-import com.cgvsu.model.Model;
-import com.cgvsu.objreader.ObjReader;
-import com.cgvsu.render_engine.Camera;
+import com.cgvsu.original.model.Model;
+import com.cgvsu.original.objreader.ObjReader;
+import com.cgvsu.original.render_engine.Camera;
 
 public class GuiController {
 

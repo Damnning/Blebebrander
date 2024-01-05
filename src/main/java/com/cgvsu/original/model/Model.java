@@ -1,6 +1,6 @@
-package com.cgvsu.model;
-import com.cgvsu.math.Vector2f;
-import com.cgvsu.math.Vector3f;
+package com.cgvsu.original.model;
+import com.cgvsu.original.vector.Vector2f;
+import com.cgvsu.original.vector.Vector3f;
 
 import java.util.*;
 

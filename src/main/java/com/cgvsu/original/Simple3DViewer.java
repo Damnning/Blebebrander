@@ -1,4 +1,4 @@
-package com.cgvsu;
+package com.cgvsu.original;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

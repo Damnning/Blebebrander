@@ -1,4 +1,4 @@
-package com.cgvsu.model;
+package com.cgvsu.original.model;
 
 import java.util.ArrayList;
 
