@@ -5,6 +5,8 @@ module com.cgvsu {
     requires java.desktop;
 
 
-    exports com.cgvsu.original;
-    opens com.cgvsu.original to javafx.fxml;
+    exports com.cgvsu.ui.controller;
+    opens com.cgvsu.ui.controller to javafx.fxml;
+    exports com.cgvsu.ui.application;
+    opens com.cgvsu.ui.application to javafx.fxml;
 }

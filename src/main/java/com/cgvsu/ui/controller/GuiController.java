@@ -1,25 +1,26 @@
-package com.cgvsu.original;
+package com.cgvsu.ui.controller;
 
+import com.cgvsu.original.model.Model;
+import com.cgvsu.ui.objreader.ObjReader;
+import com.cgvsu.original.render_engine.Camera;
 import com.cgvsu.original.render_engine.RenderEngine;
-import javafx.fxml.FXML;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import javax.vecmath.Vector3f;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.io.IOException;
-import java.io.File;
-import javax.vecmath.Vector3f;
-
-import com.cgvsu.original.model.Model;
-import com.cgvsu.original.objreader.ObjReader;
-import com.cgvsu.original.render_engine.Camera;
 
 public class GuiController {
 
@@ -82,7 +83,7 @@ public class GuiController {
             mesh = ObjReader.read(fileContent);
             // todo: обработка ошибок
         } catch (IOException exception) {
-
+            showError("Unable to read file");
         }
     }
 
@@ -114,5 +115,10 @@ public class GuiController {
     @FXML
     public void handleCameraDown(ActionEvent actionEvent) {
         camera.movePosition(new Vector3f(0, -TRANSLATION, 0));
+    }
+    public void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(message);
     }
 }

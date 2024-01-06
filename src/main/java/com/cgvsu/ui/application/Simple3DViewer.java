@@ -1,4 +1,4 @@
-package com.cgvsu.original;
+package com.cgvsu.ui.application;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +13,7 @@ public class Simple3DViewer extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        AnchorPane viewport = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/gui.fxml")));
+        AnchorPane viewport = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gui.fxml")));
 
         Scene scene = new Scene(viewport);
         stage.setMinWidth(1600);
@@ -21,7 +21,7 @@ public class Simple3DViewer extends Application {
         viewport.prefWidthProperty().bind(scene.widthProperty());
         viewport.prefHeightProperty().bind(scene.heightProperty());
 
-        stage.setTitle("Simple3DViewer");
+        stage.setTitle("Blebebrander");
         stage.setScene(scene);
         stage.show();
     }
