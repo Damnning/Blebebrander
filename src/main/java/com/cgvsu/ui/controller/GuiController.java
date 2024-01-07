@@ -13,9 +13,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import javax.vecmath.Vector3f;
@@ -23,6 +23,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class GuiController {
 
@@ -34,8 +37,16 @@ public class GuiController {
     @FXML
     private Canvas canvas;
 
+    private List<Model> models;
+    private List<Model> selectedModels;
     private Model mesh = null;
-    String path;
+    Stack<String> paths;
+    @FXML
+    private ListView<String> outliner;
+
+    @FXML
+    private ListView<?> properties;
+
 
     private Camera camera = new Camera(
             new Vector3f(0, 00, 100),
@@ -48,7 +59,9 @@ public class GuiController {
     private void initialize() {
         anchorPane.prefWidthProperty().addListener((ov, oldValue, newValue) -> canvas.setWidth(newValue.doubleValue()));
         anchorPane.prefHeightProperty().addListener((ov, oldValue, newValue) -> canvas.setHeight(newValue.doubleValue()));
-
+        models = new ArrayList<>();
+        selectedModels = new ArrayList<>();
+        paths = new Stack<>();
         timeline = new Timeline();
         timeline.setCycleCount(Animation.INDEFINITE);
 
@@ -80,10 +93,12 @@ public class GuiController {
         }
 
         Path fileName = Path.of(file.getAbsolutePath());
-        path = fileName.toString();
+        paths.add(fileName.toString());
         try {
             String fileContent = Files.readString(fileName);
             mesh = ObjReader.read(fileContent);
+            models.add(ObjReader.read(fileContent));
+            outliner.getItems().add(paths.peek().split( "")[paths.peek().split("").length - 1]);
         } catch (IOException exception) {
             showError(exception.getMessage());
         }
@@ -112,11 +127,11 @@ public class GuiController {
         if(mesh == null) {
             return;
         }
-        if(path == null) {
+        if(paths == null) {
             onSaveModelAsMenuItemClick(event);
         } else {
             try {
-                ObjWriter.writeModelToObjFile(path, mesh);
+                ObjWriter.writeModelToObjFile(paths.pop(), mesh);
             } catch (ObjWriterException exception) {
                 showError(exception.getMessage());
             }
