@@ -1,7 +1,7 @@
 package com.cgvsu.ui.objreader;
 
-import com.cgvsu.original.vector.Vector2f;
-import com.cgvsu.original.vector.Vector3f;
+import com.cgvsu.math.vectors.Vector2f;
+import com.cgvsu.math.vectors.Vector3f;
 import com.cgvsu.original.model.Model;
 import com.cgvsu.original.model.Polygon;
 
@@ -35,14 +35,14 @@ public class ObjReader {
 
             ++lineInd;
             switch (token) {
-                case OBJ_VERTEX_TOKEN -> result.vertices.add(parseVertex(wordsInLine, lineInd));
-                case OBJ_TEXTURE_TOKEN -> result.textureVertices.add(parseTextureVertex(wordsInLine, lineInd));
-                case OBJ_NORMAL_TOKEN -> result.normals.add(parseNormal(wordsInLine, lineInd));
+                case OBJ_VERTEX_TOKEN -> result.addVertex(parseVertex(wordsInLine, lineInd));
+                case OBJ_TEXTURE_TOKEN -> result.addTextureVertex(parseTextureVertex(wordsInLine, lineInd));
+                case OBJ_NORMAL_TOKEN -> result.addNormal(parseNormal(wordsInLine, lineInd));
                 case OBJ_FACE_TOKEN -> {
-                    result.polygons.add(parseFace(wordsInLine, lineInd));
-                    if (result.polygons.size() > 1 &&
-                            (result.polygons.get(result.polygons.size() - 2).getTextureVertexIndices().size() == 0) !=
-                                    (result.polygons.get(result.polygons.size() - 1).getTextureVertexIndices().size() == 0))
+                    result.addPolygon(parseFace(wordsInLine, lineInd));
+                    if (result.getPolygons().size() > 1 &&
+                            (result.getPolygons().get(result.getPolygons().size() - 2).getTextureVertexIndices().size() == 0) !=
+                                    (result.getPolygons().get(result.getPolygons().size() - 1).getTextureVertexIndices().size() == 0))
                     {
                         throw new ObjReaderException("Polygon has no texture vertices.", lineInd);
                     }
@@ -51,29 +51,29 @@ public class ObjReader {
             }
         }
 
-        if (result.polygons.size() == 0) {
+        if (result.getPolygons().size() == 0) {
             throw new ObjReaderException("OBJ has not any polygons", lineInd);
         }
 
-        if (result.vertices.size() == 0) {
+        if (result.getVertices().size() == 0) {
             throw new ObjReaderException("OBJ has not any vertices", lineInd);
         }
 
-        for (Polygon list : result.polygons) {
-            int vertexIndicesSize = result.vertices.size();
-            int normalIndicesSize = result.normals.size();
-            int textureIndicesSize = result.textureVertices.size();
+        for (Polygon list : result.getPolygons()) {
+            int vertexIndicesSize = result.getVertices().size();
+            int normalIndicesSize = result.getNormals().size();
+            int textureIndicesSize = result.getTextureVertices().size();
 
             for (int i = 0; i < 3; i++) {
                 // проверка на то, что индекс вершины полигона не содержится в массиве индексов модели
                 int vertexIndex = list.getVertexIndices().get(i);
                 // проверка на то, что вершина задана отрицательно
                 if (vertexIndex < 0) {
-                    list.getVertexIndices().set(i, result.vertices.size() + 1 + vertexIndex);
+                    list.getVertexIndices().set(i, result.getVertices().size() + 1 + vertexIndex);
                     vertexIndex = list.getVertexIndices().get(i);
                 }
                 // проверка на vertexIndex < 0 нужна потому, что на прошлом условии мы уже перевели индексы на положительные
-                if (vertexIndex >= result.vertices.size() || vertexIndex < 0) {
+                if (vertexIndex >= result.getVertices().size() || vertexIndex < 0) {
                     throw new ObjReaderException("The polygon is specified incorrectly: vertex index out of bounds.",
                             findLineInObj(
                                     new Scanner(fileContent),
@@ -87,10 +87,10 @@ public class ObjReader {
                 for (int i = 0; i < 3; i++) {
                     int normalIndex = list.getNormalIndices().get(i);
                     if (normalIndex < 0) {
-                        list.getNormalIndices().set(i, result.normals.size() + 1 + normalIndex);
+                        list.getNormalIndices().set(i, result.getNormals().size() + 1 + normalIndex);
                         normalIndex = list.getNormalIndices().get(i);
                     }
-                    if (normalIndex >= result.normals.size() || normalIndex < 0) {
+                    if (normalIndex >= result.getNormals().size() || normalIndex < 0) {
                         throw new ObjReaderException("The polygon is specified incorrectly: normal index out of bounds.",
                                 findLineInObj(
                                         new Scanner(fileContent),
@@ -105,10 +105,10 @@ public class ObjReader {
                 for (int i = 0; i < 3; i++) {
                     int textureIndex = list.getTextureVertexIndices().get(i);
                     if (textureIndex < 0) {
-                        list.getTextureVertexIndices().set(i, result.textureVertices.size() + 1 + textureIndex);
+                        list.getTextureVertexIndices().set(i, result.getVertices().size() + 1 + textureIndex);
                         textureIndex = list.getTextureVertexIndices().get(i);
                     }
-                    if (textureIndex >= result.textureVertices.size() || textureIndex < 0) {
+                    if (textureIndex >= result.getTextureVertices().size() || textureIndex < 0) {
                         throw new ObjReaderException("The polygon is specified incorrectly: texture index out of bounds.",
                                 findLineInObj(
                                         new Scanner(fileContent),

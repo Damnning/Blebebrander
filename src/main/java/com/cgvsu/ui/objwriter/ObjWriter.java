@@ -1,7 +1,7 @@
 package com.cgvsu.ui.objwriter;
 
-import com.cgvsu.original.vector.Vector2f;
-import com.cgvsu.original.vector.Vector3f;
+import com.cgvsu.math.vectors.Vector2f;
+import com.cgvsu.math.vectors.Vector3f;
 import com.cgvsu.original.model.Model;
 import com.cgvsu.original.model.Polygon;
 
@@ -21,10 +21,10 @@ public class ObjWriter {
         File file = new File(fileName);
 
         try (PrintWriter printWriter = new PrintWriter(file)) {
-            writeVerticesOfModel(printWriter, model.vertices);
-            writeTextureVerticesOfModel(printWriter, model.textureVertices);
-            writeNormalsOfModel(printWriter, model.normals);
-            writePolygonsOfModel(printWriter, model.polygons);
+            writeVerticesOfModel(printWriter, model.getVertices());
+            writeTextureVerticesOfModel(printWriter, model.getTextureVertices());
+            writeNormalsOfModel(printWriter, model.getNormals());
+            writePolygonsOfModel(printWriter, model.getPolygons());
         } catch (IOException e) {
             throw new ObjWriterException("Error writing model to obj file: " + fileName + " " + e.getMessage());
         }

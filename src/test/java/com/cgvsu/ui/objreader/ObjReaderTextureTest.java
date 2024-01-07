@@ -1,7 +1,7 @@
 package com.cgvsu.ui.objreader;
 
 
-import com.cgvsu.original.vector.Vector2f;
+import com.cgvsu.math.vectors.Vector2f;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class ObjReaderTextureTest {
         ArrayList<String> wordsInLineWithoutToken = new ArrayList<>(Arrays.asList("1.01", "1.02"));
         Vector2f result = ObjReader.parseTextureVertex(wordsInLineWithoutToken, 5);
         Vector2f expectedResult = new Vector2f(1.01f, 1.02f);
-        Assertions.assertTrue(result.x == expectedResult.x && result.y == expectedResult.y);
+        Assertions.assertTrue(result.getX() == expectedResult.getX() && result.getY() == expectedResult.getY());
     }
 
     @Test

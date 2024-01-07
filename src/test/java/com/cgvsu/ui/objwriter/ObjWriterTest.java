@@ -1,10 +1,8 @@
 package com.cgvsu.ui.objwriter;
 
-import com.cgvsu.original.vector.Vector2f;
-import com.cgvsu.original.vector.Vector3f;
-import com.cgvsu.original.model.Model;
+import com.cgvsu.math.vectors.Vector2f;
+import com.cgvsu.math.vectors.Vector3f;
 import com.cgvsu.original.model.Polygon;
-import com.cgvsu.ui.objreader.ObjReader;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,8 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Matcher;
+
 
 class ObjWriterTest {
     @Test

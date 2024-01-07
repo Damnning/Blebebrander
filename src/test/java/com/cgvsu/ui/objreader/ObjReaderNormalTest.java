@@ -1,5 +1,5 @@
 package com.cgvsu.ui.objreader;
-import com.cgvsu.original.vector.Vector3f;
+import com.cgvsu.math.vectors.Vector3f;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
